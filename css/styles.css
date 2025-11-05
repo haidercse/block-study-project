@@ -245,6 +245,118 @@ footer {
   text-align: center;
 }
 
+/* Smooth scrolling for nav anchors */
+html {
+  scroll-behavior: smooth;
+}
+
+/* About Section */
+.about {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+}
+.about-inner {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.about-text {
+  flex: 1 1 60%;
+  text-align: left;
+}
+.about-text h2 {
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+.about-text p {
+  color: rgba(255,255,255,0.9);
+}
+.funny-story {
+  width: 300px;
+  background: rgba(255,255,255,0.95);
+  color: var(--text-dark);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: left;
+}
+.funny-story img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+/* Gallery */
+.gallery {
+  max-width: 1000px;
+  margin: 2rem auto 3rem;
+  padding: 0 1rem;
+  text-align: left;
+}
+.gallery .section-title {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.gallery-item {
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+}
+.gallery-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.gallery-item figcaption {
+  padding: 0.5rem 0.75rem 1rem;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Contact */
+.contact {
+  max-width: 600px;
+  margin: 2rem auto 4rem;
+  padding: 0 1rem;
+}
+.contact-card {
+  background: rgba(255,255,255,0.95);
+  color: var(--text-dark);
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: left;
+}
+.contact-card h2 {
+  margin-top: 0;
+}
+.contact-card ul {
+  list-style: none;
+  padding: 0;
+}
+.contact-card a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .about-inner { flex-direction: column; }
+  .funny-story { width: 100%; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .about-inner { gap: 1rem; }
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   h1 {
