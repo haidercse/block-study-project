@@ -271,7 +271,8 @@ html {
   margin-bottom: 0.5rem;
 }
 .about-text p {
-  color: rgba(255,255,255,0.9);
+  /* theme-aware paragraph color so text is visible in both light and dark themes */
+  color: var(--text-light);
 }
 .funny-story {
   width: 300px;
