@@ -6,6 +6,12 @@
   --text-light: #ffffff;
   --text-dark: #2c3e50;
   --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Nav-specific variables */
+  --nav-bg: rgba(0,0,0,0.25);
+  --nav-bg-light: rgba(255,255,255,0.95);
+  --nav-link-color: var(--text-light);
+  --nav-link-hover-bg: rgba(255,255,255,0.08);
+  --nav-link-hover-color: var(--secondary-color);
 }
 
 body {
@@ -22,6 +28,11 @@ body.light-theme {
   --bg-gradient: linear-gradient(135deg, #f6f9fc 0%, #e9ecef 100%);
   --text-light: #2c3e50;
   --text-dark: #2c3e50;
+  /* Nav overrides for light theme */
+  --nav-bg: var(--nav-bg-light);
+  --nav-link-color: var(--text-dark);
+  --nav-link-hover-bg: rgba(0,0,0,0.06);
+  --nav-link-hover-color: var(--primary-color);
 }
 
 
@@ -36,8 +47,12 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  margin-bottom: 2rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  background: var(--nav-bg);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  backdrop-filter: blur(6px);
 }
 
 .main-nav ul {
@@ -49,27 +64,31 @@ header {
 }
 
 .main-nav a {
-  color: var(--text-light);
+  color: var(--nav-link-color);
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: 600;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  transition: color 0.22s ease, background 0.22s ease, transform 0.12s ease;
 }
 
 .main-nav a:hover {
-  color: var(--secondary-color);
+  color: var(--nav-link-hover-color);
+  background: var(--nav-link-hover-bg);
+  transform: translateY(-2px);
 }
 
 #theme-toggle {
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 0.9rem;
   background: transparent;
-  border: 2px solid var(--text-light);
-  color: var(--text-light);
+  border: 2px solid var(--nav-link-color);
+  color: var(--nav-link-color);
   border-radius: 20px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.22s ease;
 }
 #theme-toggle:hover {
-  background: var(--text-light);
+  background: var(--nav-link-color);
   color: var(--text-dark);
 }
 
