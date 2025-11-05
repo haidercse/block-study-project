@@ -90,7 +90,22 @@
     <div class="contact-card">
       <h2>Contact</h2>
       <p>If you'd like to retell this story or suggest new giants, reach out:</p>
-      <ul>
+
+      <!-- Contact form (client-side only) -->
+      <form id="contact-form" class="contact-form" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Write your message..." required></textarea>
+
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+
+      <ul class="contact-details">
         <li>Email: <a href="mailto:story@giants.example">story@giants.example</a></li>
         <li>Twitter: <a href="#">@giant_tales</a></li>
       </ul>

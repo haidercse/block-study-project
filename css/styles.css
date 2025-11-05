@@ -346,6 +346,90 @@ html {
   text-decoration: none;
 }
 
+/* Contact form styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0 1.25rem;
+}
+.contact-form label {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(44, 62, 80, 0.12);
+  font-size: 1rem;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  box-shadow: 0 4px 12px rgba(74,144,226,0.12);
+  border-color: var(--primary-color);
+}
+.btn-submit {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-submit:hover { background: var(--secondary-color); }
+
+/* form success message */
+.form-success {
+  background: rgba(40,200,120,0.12);
+  border: 1px solid rgba(40,200,120,0.25);
+  color: #1d6b3a;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-top: 0.75rem;
+}
+
+/* Lightbox / modal */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.lightbox.active { display: flex; }
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  position: relative;
+}
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  border-radius: 8px;
+}
+.lightbox-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: #fff;
+  color: #222;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* make gallery images clickable */
+.gallery-item img { cursor: pointer; }
+
 /* Responsive adjustments */
 @media (max-width: 900px) {
   .about-inner { flex-direction: column; }

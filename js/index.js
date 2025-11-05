@@ -123,4 +123,70 @@ document.addEventListener('DOMContentLoaded', () => {
     // Clear removed slides array
     removedSlides = [];
   });
+
+  // Gallery lightbox behavior
+  // Create lightbox markup once
+  const lightbox = document.createElement('div');
+  lightbox.id = 'lightbox';
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = `
+    <div class="lightbox-content">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <img src="" alt="" />
+    </div>
+  `;
+  document.body.appendChild(lightbox);
+
+  const lightboxImg = lightbox.querySelector('img');
+  const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+  // open lightbox when clicking a gallery image
+  function attachGalleryHandlers() {
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.addEventListener('click', (ev) => {
+        lightboxImg.src = ev.currentTarget.src;
+        lightboxImg.alt = ev.currentTarget.alt || '';
+        lightbox.classList.add('active');
+      });
+    });
+  }
+
+  attachGalleryHandlers();
+
+  // Close handlers
+  lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+
+  // Contact form handling (client-side only)
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      // Simple validation
+      if (!name || !email || !message) {
+        alert('Please fill all fields.');
+        return;
+      }
+
+      // Show success message and clear form (no network request)
+      const success = document.createElement('div');
+      success.className = 'form-success';
+      success.textContent = 'Thanks! Your message has been received (locally).';
+      const contactCard = document.querySelector('.contact-card');
+      contactCard.appendChild(success);
+
+      contactForm.reset();
+
+      // remove message after a few seconds
+      setTimeout(() => success.remove(), 5000);
+    });
+  }
 });
