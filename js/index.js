@@ -5,6 +5,84 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.toggle('light-theme');
   });
 
+  // Mobile nav toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const mainNav = document.querySelector('.main-nav');
+  if (navToggle && mainNav) {
+    // helper to close the mobile modal nav cleanly
+    const closeMobileNav = () => {
+      mainNav.classList.remove('open-visible');
+      // wait for transition to finish then remove .open
+      setTimeout(() => mainNav.classList.remove('open'), 260);
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.textContent = '☰';
+      document.body.classList.remove('no-scroll');
+      // return focus to the toggle
+      navToggle.focus();
+    };
+
+    navToggle.addEventListener('click', () => {
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      const newExpanded = !expanded;
+      navToggle.setAttribute('aria-expanded', String(newExpanded));
+      if (newExpanded) {
+        // open flow
+        mainNav.classList.add('open');
+        // allow CSS to pick up and transition to visible
+        requestAnimationFrame(() => mainNav.classList.add('open-visible'));
+        // prevent background scrolling
+        document.body.classList.add('no-scroll');
+        // swap the hamburger to an X for clarity
+        navToggle.textContent = '✕';
+        // focus the first link for keyboard users
+        const firstLink = mainNav.querySelector('a');
+        if (firstLink) firstLink.focus();
+      } else {
+        // close flow
+        closeMobileNav();
+      }
+    });
+
+    // ensure pressing Escape closes the modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mainNav.classList.contains('open')) {
+        closeMobileNav();
+      }
+    });
+
+    // add a visible close button in the modal (for accessibility)
+    let modalClose = mainNav.querySelector('.modal-close');
+    if (!modalClose) {
+      modalClose = document.createElement('button');
+      modalClose.className = 'modal-close';
+      modalClose.setAttribute('aria-label', 'Close menu');
+      modalClose.textContent = '✕';
+      // insert at the top of the menu (before all links) once opened
+      // we'll append it to the ul so it sits above links in the modal
+      const menuList = mainNav.querySelector('ul');
+      if (menuList) menuList.insertAdjacentElement('afterbegin', modalClose);
+    }
+    modalClose.addEventListener('click', closeMobileNav);
+
+    // Close the mobile menu when a nav link is clicked
+    mainNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.textContent = '☰';
+      });
+    });
+
+    // Optional: close the menu on wider resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 800 && mainNav.classList.contains('open')) {
+        mainNav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.textContent = '☰';
+      }
+    });
+  }
+
   let slides = Array.from(document.querySelectorAll('.slide'));
   const nextBtn = document.getElementById('next');
   const prevBtn = document.getElementById('prev');

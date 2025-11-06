@@ -12,6 +12,13 @@
   --nav-link-color: var(--text-light);
   --nav-link-hover-bg: rgba(255,255,255,0.08);
   --nav-link-hover-color: var(--secondary-color);
+  /* color used for links when mobile menu is opened */
+  --nav-open-link-color: var(--secondary-color);
+  /* spacing and layout variables */
+  --section-padding: 2rem;
+  --container-width: min(92%, 1200px);
+  --nav-height: 60px;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -33,49 +40,99 @@ body.light-theme {
   --nav-link-color: var(--text-dark);
   --nav-link-hover-bg: rgba(0,0,0,0.06);
   --nav-link-hover-color: var(--primary-color);
+  --nav-open-link-color: var(--primary-color);
 }
 
 
 header {
-  padding: 2rem 1rem;
+  padding: var(--section-padding) 1rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  margin-bottom: 2rem;
+  width: var(--container-width);
+  margin: 0 auto 2rem;
+  position: relative;
+  border-radius: 16px;
+  transition: all var(--transition-smooth);
 }
 
 .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.25rem;
   margin-bottom: 1.25rem;
   background: var(--nav-bg);
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  backdrop-filter: blur(10px);
+  max-width: var(--container-width);
+  margin: 0 auto 1.5rem;
+  position: relative;
+  transition: all var(--transition-smooth);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .main-nav ul {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
+}
+
+/* Mobile nav toggle (hidden on desktop) */
+.nav-toggle,
+.modal-close {
+  display: none; /* Hidden by default on desktop */
+  background: transparent;
+  border: 2px solid var(--nav-link-color);
+  color: var(--nav-link-color);
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.05rem;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 1rem;
 }
 
 .main-nav a {
   color: var(--nav-link-color);
   text-decoration: none;
   font-weight: 600;
-  padding: 0.45rem 0.6rem;
-  border-radius: 8px;
-  transition: color 0.22s ease, background 0.22s ease, transform 0.12s ease;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  position: relative;
+  background: transparent;
+  letter-spacing: 0.3px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: calc(100% - 2rem);
+  height: 3px;
+  background: var(--secondary-color);
+  border-radius: 4px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .main-nav a:hover {
   color: var(--nav-link-hover-color);
-  background: var(--nav-link-hover-bg);
   transform: translateY(-2px);
+}
+
+.main-nav a:hover::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
 #theme-toggle {
@@ -271,40 +328,103 @@ html {
 
 /* About Section */
 .about {
-  max-width: 1000px;
+  max-width: var(--container-width);
   margin: 3rem auto;
-  padding: 1.5rem;
+  padding: var(--section-padding);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  transition: all var(--transition-smooth);
 }
+
 .about-inner {
   display: flex;
   gap: 2rem;
   align-items: flex-start;
   justify-content: space-between;
 }
+
 .about-text {
   flex: 1 1 60%;
   text-align: left;
+  padding: 2rem;
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition-smooth);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
 }
+
+.about-text:hover {
+  transform: translateY(-5px);
+}
+
 .about-text h2 {
-  color: var(--text-light);
-  margin-bottom: 0.5rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  font-size: 2.4rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  position: relative;
+  display: inline-block;
 }
+
+.about-text h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 60px;
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+}
+
 .about-text p {
-  /* theme-aware paragraph color so text is visible in both light and dark themes */
-  color: var(--text-light);
+  color: rgba(255,255,255,0.95);
+  line-height: 1.8;
+  font-size: 1.15rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
+
 .funny-story {
   width: 300px;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.98);
   color: var(--text-dark);
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: left;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  transform: rotate(2deg);
+  transition: all var(--transition-smooth);
+  margin: 0 auto;
 }
+
+.funny-story:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
 .funny-story img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
+  width: 90%;
+  max-width: 280px;
+  border-radius: 12px;
+  margin: 0 auto 1.25rem;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: rotate(-2deg);
+  transition: transform var(--transition-smooth);
+}
+
+.funny-story p {
+  text-align: center;
+  line-height: 1.6;
+  color: var(--text-dark);
+  padding: 0 0.5rem;
+}
+
+.funny-story:hover img {
+  transform: rotate(0deg);
 }
 
 /* Gallery */
@@ -451,22 +571,315 @@ html {
 .gallery-item img { cursor: pointer; }
 
 /* Responsive adjustments */
-@media (max-width: 900px) {
-  .about-inner { flex-direction: column; }
-  .funny-story { width: 100%; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-  .gallery-grid { grid-template-columns: 1fr; }
-  .about-inner { gap: 1rem; }
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: 1.5rem;
+  }
+  
+  header {
+    padding: var(--section-padding) 1rem;
+  }
+
+  .about {
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  .about-inner { 
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .about-text {
+    padding: 1.5rem;
+  }
+
+  .about-text h2 {
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    text-align: center;
+  }
+  
+  .funny-story { 
+    width: 100%;
+    max-width: 500px;
+    margin: 1rem auto;
+    transform: rotate(0);
+  }
+
+  .funny-story img {
+    transform: rotate(0);
+  }
+  
+  .gallery-grid { 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .carousel {
+    padding: 0.75rem;
+  }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 1.4rem;
+/* Responsive nav: show hamburger and collapse menu into a dropdown */
+@media (max-width: 800px) {
+  .nav-toggle,
+  .main-nav.open .modal-close { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
   }
+
+  .main-nav {
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* Default (small dropdown) kept but replaced visually when .open is toggled */
+  .main-nav ul {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 1rem;
+    background: var(--nav-bg);
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    display: none; /* hidden until opened */
+    width: 220px;
+    z-index: 50;
+  }
+
+  /* When opened, transform the dropdown into a full-screen modal panel */
+  .main-nav.open ul {
+    display: flex;
+    position: fixed;
+    inset: 0; /* fill the viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    flex-direction: column;
+    gap: 2rem;
+    padding: 4rem 1.5rem;
+    border-radius: 0;
+    box-shadow: none;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 500ms cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+  }
+
+  /* Visible state with slide-up animation */
+  .main-nav.open-visible ul {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Add animation delay for menu items */
+  .main-nav.open ul li {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 400ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .main-nav.open-visible ul li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .main-nav.open ul li:nth-child(1) { transition-delay: 200ms; }
+  .main-nav.open ul li:nth-child(2) { transition-delay: 250ms; }
+  .main-nav.open ul li:nth-child(3) { transition-delay: 300ms; }
+  .main-nav.open ul li:nth-child(4) { transition-delay: 350ms; }
+
+  /* visible state (use when .main-nav has .open-visible added) */
+  .main-nav.open-visible ul {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* Modal entrance animation fallback (keeps earlier keyframes semantics) */
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .main-nav ul li { margin: 0; }
+
+  .main-nav a { display: block; text-align: left; padding: 0.6rem 0.9rem; }
+
+  /* When the mobile menu is open, use a distinct link color so items are clearly visible */
+  .main-nav.open a {
+    color: var(--nav-open-link-color);
+  }
+
+  /* make modal links larger and touch-friendly */
+  .main-nav.open ul .main-nav a,
+  .main-nav.open a {
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    letter-spacing: 0.8px;
+    position: relative;
+    width: min(300px, 85vw);
+    margin: 0 auto;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 300ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .main-nav.open a:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  @keyframes slideUpFade {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* modal close button */
+  .main-nav .modal-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .main-nav.open .modal-close {
+    opacity: 1;
+  }
+
+  /* stop body scrolling while modal open */
+  body.no-scroll { overflow: hidden; }
+
+  /* keep theme toggle visible on the right */
+  #theme-toggle { margin-left: 0.6rem; }
+}
+/* Light-theme specific modal look */
+@media (max-width: 800px) {
+  body.light-theme .main-nav.open ul {
+    background: rgba(255,255,255,0.96);
+  }
+  body.light-theme .main-nav.open a {
+    color: var(--text-dark);
+    background: rgba(0,0,0,0.03);
+  }
+  /* Light theme hover effect */
+  body.light-theme .main-nav a::after {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+  }
+  body.light-theme .main-nav a:hover {
+    color: var(--primary-color);
+  }
+  /* light-theme modal close override */
+  body.light-theme .main-nav .modal-close {
+    background: rgba(0,0,0,0.04);
+    color: var(--text-dark);
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --section-padding: 1rem;
+  }
+
+  header {
+    padding: var(--section-padding) 0.75rem;
+  }
+
+  .gallery-grid { 
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .about-inner { 
+    gap: 1rem; 
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+    margin: 0.75rem 0;
+  }
+
   #reset {
     font-size: 0.9rem;
+    padding: 0.5rem 0.9rem;
+  }
+
+  .carousel, .about, .gallery, .contact {
+    margin: var(--section-padding) auto;
+  }
+
+  .slide p {
+    padding: 0 1rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .main-nav {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .nav-buttons {
+    gap: 1rem;
+  }
+
+  .nav-buttons button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .about-text h2,
+  .gallery .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 }
